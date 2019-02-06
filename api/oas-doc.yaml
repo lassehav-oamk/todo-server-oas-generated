@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Todoels server app
+paths:
+  /todos:
+    get:
+      description: Returns array of todos
+      operationId: todosGet
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoObjectRead'
+    post:
+      description: Add new todo
+      operationId: todosPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoObjectCreate'
+        description: New todo item
+        required: true
+        x-name: todoObjectCreate
+      responses:
+        '201':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+  '/todos/{todoId}/toggleDone':
+    post:
+      operationId: isDoneToggle
+      parameters:
+        - in: path
+          name: todoId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: Not found
+servers:
+  - url: 'https://localhost:10010/'
+components:
+  schemas:
+    TodoObjectRead:
+      properties:
+        id:
+          type: integer
+          example: 53
+        description:
+          type: string
+          example: Hello World
+        dueDate:
+          type: string
+          example: 2017-10-20T00:00:00.000Z
+        type:
+          type: string
+          example: chore
+        isDone:
+          type: boolean
+          example: false
+    TodoObjectCreate:
+      required:
+        - type
+      properties:
+        description:
+          type: string
+        dueDate:
+          type: string
+          format: datetime
+        type:
+          type: string
+        isDone:
+          type: boolean
