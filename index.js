@@ -26,10 +26,10 @@ var options_object = {
   router: true,
   validator: true,
   docs: {
-    apiDocs: null,
-    apiDocsPrefix: null,
-    swaggerUi: null,
-    swaggerUiPrefix: null
+    apiDocs: '/apiDocs',
+    apiDocsPrefix: '',
+    swaggerUi: '/docs',
+    swaggerUiPrefix: ''
   }
 };
 
